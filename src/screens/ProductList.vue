@@ -5,16 +5,19 @@
       <div class="container-fluid">
         <div class="row mkc-product-list">
           <div class="col d-none d-sm-block col-md-3">
+            <h4>Marca</h4>
             <ul>
-              <li>
-                <input type="radio" name />
-              </li>
+              <li></li>
             </ul>
           </div>
-          <div class="col col-xs-12 col-md-9">
+          <div class="col col-xs-12 col-md-10 col-lg-9">
             <Title class="capitalize">{{title}}</Title>
             <div class="row">
-              <Card v-for="product in products" :product="product" v-bind:key="product.id" />
+              <CardWithoutBtn
+                v-for="product in products"
+                :product="product"
+                v-bind:key="product.id"
+              />
             </div>
           </div>
         </div>
@@ -24,16 +27,16 @@
 </template>
 
 <script>
-import Card from "../components/Card.vue";
 import Menu from "../components/Menu.vue";
 import Title from "../components/Title";
+import CardWithoutBtn from "../components/CardWithoutBtn";
 
 export default {
   name: "ProductList",
   components: {
-    Card,
     Menu,
-    Title
+    Title,
+    CardWithoutBtn
   },
   mounted() {},
   data() {
