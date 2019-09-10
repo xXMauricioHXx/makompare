@@ -54,6 +54,35 @@ export default {
     Title,
     Card
   },
+  mounted() {
+    console.log(this.formatItems());
+  },
+  methods: {
+    checkQuantityItems() {
+      if (this.windowWidth <= 425) {
+        return 1;
+      } else if (this.windowWidth <= 768) {
+        return 2;
+      } else if (this.windowWidth <= 1024) {
+        return 3;
+      } else {
+        return 4;
+      }
+    },
+    formatItems() {
+      const limit = this.checkQuantityItems();
+      const carousel = [];
+      let items = [];
+      for (let i = 0; i < this.products.length; i++) {
+        items.push(this.products[i]);
+        if (items.length == limit) {
+          carousel.push(items);
+          items = [];
+        }
+      }
+      return carousel;
+    }
+  },
   data() {
     return {
       products: [

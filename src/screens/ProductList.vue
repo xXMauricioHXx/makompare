@@ -24,14 +24,10 @@
               </li>
             </ul>
           </div>
-          <div class="col col-xs-12 col-md-10 col-lg-10">
+          <div class="col col-xs-12 col-md-10 col-lg-10 pl-0 pr-0">
             <Title class="capitalize">{{title}}</Title>
             <div class="row">
-              <CardWithoutBtn
-                v-for="product in products"
-                :product="product"
-                v-bind:key="product.id"
-              />
+              <Card v-for="product in products" :product="product" v-bind:key="product.id" />
             </div>
           </div>
         </div>
@@ -43,7 +39,7 @@
 <script>
 import Menu from "../components/Menu.vue";
 import Title from "../components/Title";
-import CardWithoutBtn from "../components/CardWithoutBtn";
+import Card from "../components/Card";
 import Radio from "../components/Radio";
 
 export default {
@@ -51,7 +47,7 @@ export default {
   components: {
     Menu,
     Title,
-    CardWithoutBtn,
+    Card,
     Radio
   },
   methods: {
