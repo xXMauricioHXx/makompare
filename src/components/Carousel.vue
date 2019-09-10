@@ -8,9 +8,14 @@
             <div class="bd-example">
               <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                  <div class="carousel-item active">
+                  <div
+                    v-for="(item, index) in items"
+                    :key="index"
+                    class="carousel-item"
+                    :class="{active: !index}"
+                  >
                     <div class="row">
-                      <Card v-for="product in products" :product="product" v-bind:key="product.id" />
+                      <Card v-for="product in item" :product="product" v-bind:key="product.id" />
                     </div>
                   </div>
                 </div>
@@ -55,7 +60,7 @@ export default {
     Card
   },
   mounted() {
-    console.log(this.formatItems());
+    this.items = this.formatItems();
   },
   methods: {
     checkQuantityItems() {
@@ -65,8 +70,6 @@ export default {
         return 2;
       } else if (this.windowWidth <= 1024) {
         return 3;
-      } else {
-        return 4;
       }
     },
     formatItems() {
@@ -79,12 +82,19 @@ export default {
           carousel.push(items);
           items = [];
         }
+        if (i == this.products.length - 1) {
+          if (items.length === this.products / limit) {
+            carousel.push(items);
+            items = [];
+          }
+        }
       }
       return carousel;
     }
   },
   data() {
     return {
+      items: [],
       products: [
         {
           id: 1,
@@ -139,5 +149,15 @@ export default {
 }
 .brand-color {
   color: #fd7e14;
+}
+
+@media (max-width: 576px) {
+  .courousel-arrow-right {
+    margin-left: 50px;
+  }
+
+  .courousel-arrow-left {
+    margin-right: 50px;
+  }
 }
 </style>
