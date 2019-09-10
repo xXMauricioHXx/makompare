@@ -4,13 +4,27 @@
     <section class="mt-6 product-container">
       <div class="container-fluid">
         <div class="row mkc-product-list">
-          <div class="col d-none d-sm-block col-md-3">
-            <h4>Marca</h4>
+          <div class="col d-none d-sm-block col-md-2">
+            <h5>Marca</h5>
             <ul>
-              <li></li>
+              <li v-for="brand in catalog.brands" :key="brand" v-on:click="checked">
+                <Radio :label="brand" />
+              </li>
+            </ul>
+            <h5>Efeito</h5>
+            <ul>
+              <li v-for="effect in catalog.effects" :key="effect">
+                <Radio :label="effect" />
+              </li>
+            </ul>
+            <h5>Preço</h5>
+            <ul>
+              <li v-for="price in catalog.rangePrice" :key="price">
+                <Radio :label="price" />
+              </li>
             </ul>
           </div>
-          <div class="col col-xs-12 col-md-10 col-lg-9">
+          <div class="col col-xs-12 col-md-10 col-lg-10">
             <Title class="capitalize">{{title}}</Title>
             <div class="row">
               <CardWithoutBtn
@@ -30,18 +44,32 @@
 import Menu from "../components/Menu.vue";
 import Title from "../components/Title";
 import CardWithoutBtn from "../components/CardWithoutBtn";
+import Radio from "../components/Radio";
 
 export default {
   name: "ProductList",
   components: {
     Menu,
     Title,
-    CardWithoutBtn
+    CardWithoutBtn,
+    Radio
   },
-  mounted() {},
+  methods: {
+    checked() {}
+  },
   data() {
     return {
       title: this.$route.query.product,
+      catalog: {
+        effects: ["Matte", "Brilho", "Tradicional"],
+        brands: ["MAC", "Eudora", "Vult", "Natura Una", "Dior"],
+        rangePrice: [
+          "Até R$ 5,00",
+          "De R$ 5,00 á R$ 20,00",
+          "De R$ 20,00 á R$ 50,00",
+          "Acima de R$ 50,00"
+        ]
+      },
       products: [
         {
           id: 1,
@@ -168,6 +196,9 @@ export default {
   margin: 0px;
 }
 
+.mkc-product-list div ul li {
+  display: inline;
+}
 .mkc-product-info-list .ante-price {
   font-size: 1.3rem;
   font-weight: 900;

@@ -5,8 +5,16 @@
         <Title class="mb-0">Procure. Compare. Compre.</Title>
         <form class="search-form">
           <div class="form-group">
-            <input class="form-control form-control-lg" type="text" placeholder="Informe o produto" />
-            <label class="material-icons">search</label>
+            <input
+              class="form-control form-control-lg"
+              type="text"
+              placeholder="Informe o produto"
+              v-model="product"
+            />
+            <router-link :to="`/product-list?product=${product
+             }`">
+              <label class="material-icons">search</label>
+            </router-link>
           </div>
         </form>
         <!--<a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Learn More</a>-->
@@ -25,6 +33,11 @@ export default {
   name: "Banner",
   components: {
     Title
+  },
+  data() {
+    return {
+      product: ""
+    };
   }
 };
 </script>

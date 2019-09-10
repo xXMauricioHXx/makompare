@@ -1,5 +1,5 @@
 <template>
-  <div class="col col-xs-6 col-lg-3">
+  <div class="col-xs-12 col-md-6 col-lg-3">
     <div class="card border-0">
       <div class="mkc-favorite">
         <i class="material-icons">favorite_border</i>

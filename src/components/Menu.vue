@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <router-link class="navbar-brand" to="/">
         <span class="brand-color">MAK</span>OMPARE
-      </a>
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
