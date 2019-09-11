@@ -70,9 +70,12 @@ export default {
         return 2;
       } else if (this.windowWidth <= 1024) {
         return 3;
+      } else {
+        return 4;
       }
     },
     formatItems() {
+      this.checkQuantityItems();
       const limit = this.checkQuantityItems();
       const carousel = [];
       let items = [];
@@ -81,12 +84,6 @@ export default {
         if (items.length == limit) {
           carousel.push(items);
           items = [];
-        }
-        if (i == this.products.length - 1) {
-          if (items.length === this.products / limit) {
-            carousel.push(items);
-            items = [];
-          }
         }
       }
       return carousel;

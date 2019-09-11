@@ -1,6 +1,5 @@
 <template>
   <div class="col-xs-12 col-md-6 col-lg-3 mkc-card">
-    <div class="mkc-card-btn-compare">Comparar</div>
     <div class="card border-0 mkc-card-content">
       <div class="mkc-favorite">
         <i class="material-icons">favorite_border</i>
@@ -13,8 +12,9 @@
           <span class="mt-1 ante-price">A partir de:</span>
           <h6 class="mkc-price-list">{{product.price}}</h6>
         </div>
-        <div class="mkc-card-action-list">
-          <span>Encontrado em 9 lojas</span>
+        <div class="mkc-card-action-list" @mouseover="hideText=true" @mouseout="hideText=false">
+          <span :class="{hidding: hideText}" class="centralize">Encontrado em 9 lojas</span>
+          <span class="showing" :class="{'mkc-compare-btn': !hideText}">Comparar</span>
         </div>
       </div>
     </div>
@@ -29,6 +29,11 @@ export default {
       type: Object,
       required: true
     }
+  },
+  data() {
+    return {
+      hideText: false
+    };
   }
 };
 </script>
@@ -42,10 +47,6 @@ export default {
 .mkc-card-content {
   transition: 0.5s;
   position: relative;
-}
-
-.mkc-card-content:hover {
-  opacity: 0.5;
 }
 
 .mkc-card-btn-compare {
@@ -94,6 +95,19 @@ export default {
   font-size: 0.8rem;
 }
 
+.showing {
+  transform: translate(130px, 0px);
+  opacity: 1;
+  display: block;
+  cursor: pointer;
+}
+
+.mkc-compare-btn {
+  opacity: 0;
+  transform: translate(0px, 0px);
+  display: none;
+}
+
 .mkc-card-action-list {
   background-color: #dedede;
   width: 100%;
@@ -101,11 +115,27 @@ export default {
   height: 3rem;
   text-align: center;
   font-weight: 700;
+  transition: 0.2s;
+  position: relative;
+  text-align: center;
 }
+
+.centralize {
+  left: 83px;
+}
+
+.hidding {
+  transform: translate(82px, 0px);
+  opacity: 0;
+}
+
 .mkc-card-action-list span {
   display: block;
   padding: 0.7rem 0px;
+  position: absolute;
+  transition: 0.3s;
 }
+
 .mkc-favorite {
   border: 1px solid #c9c9c9;
   position: absolute;
