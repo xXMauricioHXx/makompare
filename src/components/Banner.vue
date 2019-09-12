@@ -43,12 +43,6 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 575.98px) {
-  .search-form {
-    width: 90%;
-    margin: 10px auto;
-  }
-}
 .search-form {
   width: 80%;
   margin: 30px auto;
@@ -76,5 +70,12 @@ export default {
   border-color: #6610f2;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(174, 0, 255, 0.25);
+}
+
+@media (max-width: 575px) {
+  .search-form {
+    width: 100%;
+    margin: 10px auto;
+  }
 }
 </style>

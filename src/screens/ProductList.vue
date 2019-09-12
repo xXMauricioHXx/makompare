@@ -2,9 +2,9 @@
   <div>
     <Menu />
     <section class="mt-6 product-container">
-      <div class="container-fluid">
+      <div class="container-fluid pl-0">
         <div class="row mkc-product-list">
-          <div class="col d-none d-sm-block col-md-2">
+          <div class="col d-none d-md-block col-md-2 mkc-filter-list pl-0">
             <h5>Marca</h5>
             <ul>
               <li v-for="brand in catalog.brands" :key="brand" v-on:click="checked">
@@ -178,7 +178,7 @@ export default {
 }
 
 .mt-6 {
-  margin-top: 6rem;
+  margin-top: 4rem;
 }
 
 .mkc-image-list {
@@ -217,6 +217,11 @@ export default {
 }
 
 .mkc-card-action-list {
-  background-color: #dedede;
+  background-color: #f2f2f2;
+}
+
+.mkc-filter-list {
+  background-color: #f2f2f2;
+  padding: 2rem !important;
 }
 </style>

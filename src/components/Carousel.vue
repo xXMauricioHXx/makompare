@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-12 order-lg-2">
-          <div class="p-5">
+          <div class="pt-5">
             <Title class="mb-3">Produtos mais procurados</Title>
             <div class="bd-example">
               <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
@@ -15,7 +15,12 @@
                     :class="{active: !index}"
                   >
                     <div class="row">
-                      <Card v-for="product in item" :product="product" v-bind:key="product.id" />
+                      <Card
+                        v-for="product in item"
+                        :product="product"
+                        :isCarousel="true"
+                        v-bind:key="product.id"
+                      />
                     </div>
                   </div>
                 </div>
@@ -69,7 +74,7 @@ export default {
       } else if (this.windowWidth <= 768) {
         return 2;
       } else {
-        return 3;
+        return 4;
       }
     },
     formatItems() {
@@ -148,11 +153,11 @@ export default {
 
 @media (max-width: 576px) {
   .courousel-arrow-right {
-    margin-left: 50px;
+    margin-left: 15px;
   }
 
   .courousel-arrow-left {
-    margin-right: 50px;
+    margin-right: 15px;
   }
 }
 </style>

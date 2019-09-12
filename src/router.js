@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './screens/Home.vue';
 import ProductList from './screens/ProductList.vue';
+import ProductDetail from './screens/ProductDetail.vue';
 
 Vue.use(Router);
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/product-list',
       name: 'product-list',
       component: ProductList,
+    },
+    {
+      path: '/product-detail',
+      name: 'product-detail',
+      component: ProductDetail,
     },
   ],
 });

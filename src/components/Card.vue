@@ -1,7 +1,7 @@
 <template>
   <div class="col-xs-12 col-md-6 col-lg-3 mkc-card">
     <div class="card border-0 mkc-card-content">
-      <div class="mkc-favorite">
+      <div class="mkc-favorite" :class="{'mkc-favorite-carousel': isCarousel }">
         <i class="material-icons">favorite_border</i>
       </div>
       <img :src="product.image" class="card-img-top mkc-image-list" alt="..." />
@@ -12,11 +12,14 @@
           <span class="mt-1 ante-price">A partir de:</span>
           <h6 class="mkc-price-list">
             {{product.price}}
-            <span class="mkc-find-in">em 9 lojas</span>
+            <span
+              class="mkc-find-in"
+              :class="{'mkc-find-in-carousel': isCarousel}"
+            >em 9 lojas</span>
           </h6>
         </div>
         <div class="mkc-card-action-list">
-          <span>Comparar</span>
+          <router-link to="/product-detail">Comparar</router-link>
         </div>
       </div>
     </div>
@@ -30,6 +33,9 @@ export default {
     product: {
       type: Object,
       required: true
+    },
+    isCarousel: {
+      type: Boolean
     }
   },
   data() {
@@ -55,10 +61,6 @@ export default {
   margin-bottom: 15rem;
 }
 
-.mt-6 {
-  margin-top: 6rem;
-}
-
 .mkc-image-list {
   width: 60%;
   display: block;
@@ -78,12 +80,6 @@ export default {
 
 .mkc-product-description {
   font-size: 0.9rem;
-}
-.mkc-price-list {
-  font-weight: 900;
-  font-size: 1.7rem;
-  color: #33052d;
-  font-family: "Lato";
 }
 .mkc-product-info-list .ante-price {
   font-size: 0.8rem;
@@ -116,9 +112,11 @@ export default {
   color: black;
 }
 
-.mkc-card-action-list span {
+.mkc-card-action-list a {
   display: block;
   padding: 0.7rem 0px;
+  color: #fff;
+  text-decoration: none;
 }
 
 .mkc-favorite {
@@ -128,7 +126,6 @@ export default {
   right: 43px;
   width: 3rem;
   height: 3rem;
-  z-index: 10000;
   border-radius: 50%;
 }
 
@@ -137,13 +134,33 @@ export default {
   cursor: pointer;
 }
 
-@media (min-width: 576px) {
+.mkc-favorite-carousel {
+  border: 1px solid #c9c9c9;
+  position: absolute;
+  padding: 0.7rem;
+  right: 20px !important;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
 }
 
-/* // Medium devices (tablets, 768px and up)
-@media (min-width: 768px) { ... }
+.mkc-find-in-carousel {
+  display: block;
+}
 
-// Large devices (desktops, 992px and up)
+@media (max-width: 576px) {
+  .mkc-card-action-list {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .mkc-card-action-list {
+    width: 100%;
+  }
+}
+
+/* // Large devices (desktops, 992px and up)
 @media (min-width: 992px) { ... }
 
 // Extra large devices (large desktops, 1200px and up)
