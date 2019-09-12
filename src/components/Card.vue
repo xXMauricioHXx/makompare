@@ -10,11 +10,13 @@
         <div class="mkc-product-info-list">
           <div class="mkc-product-description mt-3">{{product.description}}</div>
           <span class="mt-1 ante-price">A partir de:</span>
-          <h6 class="mkc-price-list">{{product.price}}</h6>
+          <h6 class="mkc-price-list">
+            {{product.price}}
+            <span class="mkc-find-in">em 9 lojas</span>
+          </h6>
         </div>
-        <div class="mkc-card-action-list" @mouseover="hideText=true" @mouseout="hideText=false">
-          <span :class="{hidding: hideText}" class="centralize">Encontrado em 9 lojas</span>
-          <span class="showing" :class="{'mkc-compare-btn': !hideText}">Comparar</span>
+        <div class="mkc-card-action-list">
+          <span>Comparar</span>
         </div>
       </div>
     </div>
@@ -49,28 +51,20 @@ export default {
   position: relative;
 }
 
-.mkc-card-btn-compare {
-  position: absolute;
-  right: 30%;
-  top: 30%;
-  padding: 1rem 3rem;
-  font-weight: 700;
-  background-color: #33052d;
-  color: #ffff;
-  z-index: 100000;
-}
-
 .product-container {
   margin-bottom: 15rem;
 }
+
 .mt-6 {
   margin-top: 6rem;
 }
+
 .mkc-image-list {
   width: 60%;
   display: block;
   margin: 1rem auto;
 }
+
 .mkc-product-list {
   padding: 0px;
   margin: 0px;
@@ -95,52 +89,43 @@ export default {
   font-size: 0.8rem;
 }
 
-.showing {
-  transform: translate(130px, 0px);
-  opacity: 1;
-  display: block;
-  cursor: pointer;
-}
-
-.mkc-compare-btn {
-  opacity: 0;
-  transform: translate(0px, 0px);
-  display: none;
-}
-
 .mkc-card-action-list {
   background-color: #dedede;
-  width: 100%;
+  width: 85%;
   margin: 0px;
   height: 3rem;
   text-align: center;
   font-weight: 700;
-  transition: 0.2s;
-  position: relative;
   text-align: center;
+  margin: 0px auto;
+  background-color: #f42d4b;
+  color: white;
+  font-weight: 400;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.5s;
 }
 
-.centralize {
-  left: 83px;
+.mkc-card-action-list:hover {
+  background-color: #c7374d;
+  font-weight: 600;
 }
 
-.hidding {
-  transform: translate(82px, 0px);
-  opacity: 0;
+.mkc-find-in {
+  font-size: 12pt;
+  color: black;
 }
 
 .mkc-card-action-list span {
   display: block;
   padding: 0.7rem 0px;
-  position: absolute;
-  transition: 0.3s;
 }
 
 .mkc-favorite {
   border: 1px solid #c9c9c9;
   position: absolute;
   padding: 0.7rem;
-  right: 1rem;
+  right: 43px;
   width: 3rem;
   height: 3rem;
   z-index: 10000;

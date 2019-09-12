@@ -68,10 +68,8 @@ export default {
         return 1;
       } else if (this.windowWidth <= 768) {
         return 2;
-      } else if (this.windowWidth <= 1024) {
-        return 3;
       } else {
-        return 4;
+        return 3;
       }
     },
     formatItems() {
