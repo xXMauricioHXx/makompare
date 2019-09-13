@@ -100,6 +100,9 @@ export default {
   text-transform: uppercase;
   cursor: pointer;
   transition: 0.5s;
+  -webkit-box-shadow: 0px 5px 4px 0px rgba(168, 168, 168, 1);
+  -moz-box-shadow: 0px 5px 4px 0px rgba(168, 168, 168, 1);
+  box-shadow: 0px 5px 4px 0px rgba(168, 168, 168, 1);
 }
 
 .mkc-card-action-list:hover {

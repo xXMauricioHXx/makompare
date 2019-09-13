@@ -35,6 +35,9 @@
                         <div class="mkc-list-action">
                           <ul class="p-0 mt-3">
                             <li>
+                              <i class="material-icons">launch</i> Ir para Loja
+                            </li>
+                            <li>
                               <i class="material-icons">add_alert</i> Alerta de preço
                             </li>
                             <li>
@@ -44,6 +47,20 @@
                           </ul>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row border mt-3">
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-md-2 mkc-product-image">
+                      <img
+                        src="https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
+                      />
+                    </div>
+                    <div class="col-md-2 mkc-product-image-brand">
+                      <img src="https://staticz.com.br/img/logos/epoca-cosmeticos.png" />
                     </div>
                   </div>
                 </div>
@@ -83,6 +100,11 @@ export default {
   width: 80%;
 }
 
+.mkc-product-image-brand img {
+  width: 100%;
+  padding: 1rem 0.3rem;
+}
+
 .mkc-price-parcela {
   margin: 0.5rem;
 }
@@ -97,14 +119,25 @@ export default {
 
 .mkc-list-action ul li {
   display: inline;
-  border: 1px solid black;
-  padding: 0.5rem 1rem;
+  background-color: #f42d4b;
+  padding: 0.5rem 1.2rem;
   font-size: 10pt;
-  border-radius: 25px;
+  color: #fff;
   margin-right: 1rem;
+  transition: 0.5s;
+  -webkit-box-shadow: 0px 5px 4px 0px rgba(168, 168, 168, 1);
+  -moz-box-shadow: 0px 5px 4px 0px rgba(168, 168, 168, 1);
+  box-shadow: 0px 5px 4px 0px rgba(168, 168, 168, 1);
 }
 
 .mkc-list-action ul li i {
-  vertical-align: bottom;
+  vertical-align: text-bottom;
+  margin-right: 0.3rem;
+  font-size: 14pt;
+}
+
+.mkc-list-action ul li:hover {
+  background-color: #c7374d;
+  cursor: pointer;
 }
 </style>

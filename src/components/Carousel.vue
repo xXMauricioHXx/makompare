@@ -6,7 +6,7 @@
           <div class="pt-5">
             <Title class="mb-3">Produtos mais procurados</Title>
             <div class="bd-example">
-              <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+              <div id="mkc-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                   <div
                     v-for="(item, index) in items"
@@ -25,8 +25,8 @@
                   </div>
                 </div>
                 <a
-                  class="carousel-control-prev"
-                  href="#carouselExampleCaptions"
+                  class="carousel-control-prev mkc-arrow-area"
+                  href="#mkc-carousel"
                   role="button"
                   data-slide="prev"
                 >
@@ -36,8 +36,8 @@
                   <span class="sr-only">Previous</span>
                 </a>
                 <a
-                  class="carousel-control-next"
-                  href="#carouselExampleCaptions"
+                  class="carousel-control-next mkc-arrow-area"
+                  href="#mkc-carousel"
                   role="button"
                   data-slide="next"
                 >
@@ -150,7 +150,9 @@ export default {
 .brand-color {
   color: #fd7e14;
 }
-
+.mkc-arrow-area {
+  width: 0px;
+}
 @media (max-width: 576px) {
   .courousel-arrow-right {
     margin-left: 15px;
