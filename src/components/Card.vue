@@ -15,7 +15,10 @@
             <span
               class="mkc-find-in"
               :class="{'mkc-find-in-carousel': isCarousel}"
-            >em 9 lojas</span>
+            >
+              em
+              <span class="mkc-color-f4">9 lojas</span>
+            </span>
           </h6>
         </div>
         <div class="mkc-card-action-list">
