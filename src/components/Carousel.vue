@@ -136,11 +136,11 @@ export default {
 
 <style scoped>
 .courousel-arrow-right {
-  margin-left: 195px;
+  margin-left: 10%;
 }
 
 .courousel-arrow-left {
-  margin-right: 195px;
+  margin-right: 10%;
 }
 
 .courousel-arrow {
