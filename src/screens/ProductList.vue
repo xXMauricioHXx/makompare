@@ -7,8 +7,8 @@
           <div class="col d-none d-md-block col-md-2 mkc-filter-list pl-0">
             <h5>Marca</h5>
             <ul>
-              <li v-for="brand in catalog.brands" :key="brand" v-on:click="checked">
-                <Radio :label="brand" />
+              <li v-for="brand in catalog.brands" :key="brand">
+                <Radio :label="brand" :filter="filterBrands" />
               </li>
             </ul>
             <h5>Efeito</h5>
@@ -20,7 +20,7 @@
             <h5>Preço</h5>
             <ul>
               <li v-for="price in catalog.rangePrice" :key="price">
-                <Radio :label="price" />
+                <Radio :label="price" :filter="filterPrice" />
               </li>
             </ul>
           </div>
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { searchProducts } from "../services/makompare";
 import Menu from "../components/Menu.vue";
 import Title from "../components/Title";
 import Card from "../components/Card";
@@ -49,9 +50,6 @@ export default {
     Title,
     Card,
     Radio
-  },
-  methods: {
-    checked() {}
   },
   data() {
     return {
@@ -66,105 +64,38 @@ export default {
           "Acima de R$ 50,00"
         ]
       },
-      products: [
-        {
-          id: 1,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 2,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 3,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 4,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 5,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 6,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 7,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 8,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 9,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 10,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 11,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 12,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        }
-      ]
+      allProducts: [],
+      products: [],
+      brandTofilter: []
     };
+  },
+  async mounted() {
+    const product = this.$route.query.product;
+    this.products = await searchProducts(product);
+    this.allProducts = this.products;
+  },
+  methods: {
+    filterBrands(brand) {
+      const brandLower = brand.toLowerCase();
+      if (this.brandTofilter.includes(brandLower)) {
+        this.brandTofilter = this.brandTofilter.filter(brands => {
+          return brands != brandLower;
+        });
+      } else {
+        this.brandTofilter.push(brandLower);
+      }
+
+      if (this.brandTofilter.length) {
+        this.products = this.allProducts.filter(product => {
+          return this.brandTofilter.includes(product.brand);
+        });
+      } else {
+        this.products = this.allProducts;
+      }
+    },
+    filterPrice(price) {
+      console.log(price.match(/([\d.*,.*\d]+)/g));
+    }
   }
 };
 </script>

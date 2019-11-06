@@ -17,7 +17,7 @@
               :class="{'mkc-find-in-carousel': isCarousel}"
             >
               em
-              <span class="mkc-color-f4">9 lojas</span>
+              <span class="mkc-color-f4">{{product.companies.length}} lojas</span>
             </span>
           </h6>
         </div>
