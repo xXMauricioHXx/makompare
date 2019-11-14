@@ -6,8 +6,8 @@
           <div class="col-md-2 mkc-product-image">
             <img :src="product.image" />
           </div>
-          <div class="col-md-2 mkc-product-image-brand">            
-            <img :src="product.brandImage" />
+          <div class="col-md-2 mkc-product-image-brand">
+            <img :src="product.siteImage" />
           </div>
           <div class="col-md-2 mkc-prices">
             <span class="mkc-find-by">á vista por:</span>

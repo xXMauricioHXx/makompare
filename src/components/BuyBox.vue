@@ -9,7 +9,7 @@
           <div class="col-12">
             <Title class="mkc-title">{{product.title}}</Title>
           </div>
-          <div class="col-12 mkc-description">{{product.description}}</div>
+          <div class="col-12 mkc-description" v-html="product.description"></div>
           <div class="col-12">
             <span class="mkc-find-in">A partir de:</span>
             <span class="mkc-price-list">{{product.price}}</span>
@@ -26,7 +26,9 @@
             <div class="mkc-list-action">
               <ul class="p-0 mt-3">
                 <li>
-                  <i class="material-icons">launch</i> Ir para Loja
+                  <a :href="product.siteLink">
+                    <i class="material-icons">launch</i> Ir para Loja
+                  </a>
                 </li>
                 <li>
                   <i class="material-icons">add_alert</i> Alerta de preço
@@ -89,6 +91,9 @@ export default {
 
 .mkc-description {
   margin-bottom: 1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .mkc-list-action ul li {
@@ -102,6 +107,11 @@ export default {
   -webkit-box-shadow: 0px 5px 4px 0px rgba(168, 168, 168, 1);
   -moz-box-shadow: 0px 5px 4px 0px rgba(168, 168, 168, 1);
   box-shadow: 0px 5px 4px 0px rgba(168, 168, 168, 1);
+}
+
+.mkc-list-action ul li a {
+  text-decoration: none;
+  color: #fff;
 }
 
 .mkc-list-action ul li i {

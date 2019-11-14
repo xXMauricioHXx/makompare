@@ -11,12 +11,7 @@
                 <Radio :label="brand" :filter="filterBrands" />
               </li>
             </ul>
-            <h5>Efeito</h5>
-            <ul>
-              <li v-for="effect in catalog.effects" :key="effect">
-                <Radio :label="effect" />
-              </li>
-            </ul>
+
             <h5>Preço</h5>
             <ul>
               <li v-for="price in catalog.rangePrice" :key="price">
@@ -33,6 +28,7 @@
         </div>
       </div>
     </section>
+    <Loader :loading="loading" />
   </div>
 </template>
 
@@ -42,6 +38,7 @@ import Menu from "../components/Menu.vue";
 import Title from "../components/Title";
 import Card from "../components/Card";
 import Radio from "../components/Radio";
+import Loader from "../components/Loader";
 
 export default {
   name: "ProductList",
@@ -49,13 +46,13 @@ export default {
     Menu,
     Title,
     Card,
-    Radio
+    Radio,
+    Loader
   },
   data() {
     return {
       title: this.$route.query.product,
       catalog: {
-        effects: ["Matte", "Brilho", "Tradicional"],
         brands: ["MAC", "Eudora", "Vult", "Natura Una", "Dior"],
         rangePrice: [
           "Até R$ 5,00",
@@ -64,15 +61,18 @@ export default {
           "Acima de R$ 50,00"
         ]
       },
+      loading: true,
       allProducts: [],
       products: [],
-      brandTofilter: []
+      brandTofilter: [],
+      pricesToFilter: []
     };
   },
   async mounted() {
     const product = this.$route.query.product;
     this.products = await searchProducts(product);
     this.allProducts = this.products;
+    this.loading = false;
   },
   methods: {
     filterBrands(brand) {
@@ -94,7 +94,45 @@ export default {
       }
     },
     filterPrice(price) {
-      console.log(price.match(/([\d.*,.*\d]+)/g));
+      if (this.pricesToFilter.includes(price)) {
+        this.pricesToFilter = this.pricesToFilter.filter(pricesToFilter => {
+          return pricesToFilter !== price;
+        });
+      } else {
+        this.pricesToFilter.push(price);
+      }
+
+      if (this.pricesToFilter.length) {
+        let products = [];
+        this.pricesToFilter.forEach(price => {
+          products = [
+            ...products,
+            ...this.allProducts.filter(product => {
+              const value = parseFloat(
+                product.price.match(/([\d.*,.*\d]+)/g)[0]
+              ).toFixed(2);
+              if (price === "Até R$ 5,00") {
+                return value <= 5.0;
+              }
+
+              if (price === "De R$ 5,00 á R$ 20,00") {
+                return value > 5.0 && value <= 20.0;
+              }
+
+              if (price === "De R$ 20,00 á R$ 50,00") {
+                return value > 20.0 && value <= 50.0;
+              }
+
+              if (price === "Acima de R$ 50,00") {
+                return value > 50.0;
+              }
+            })
+          ];
+        });
+        this.products = products;
+      } else {
+        this.products = this.allProducts;
+      }
     }
   }
 };

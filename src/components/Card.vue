@@ -22,7 +22,7 @@
           </h6>
         </div>
         <div class="mkc-card-action-list">
-          <router-link to="/product-detail">Comparar</router-link>
+          <router-link :to="`/product-detail/${product._id}`">Comparar</router-link>
         </div>
       </div>
     </div>
@@ -53,6 +53,9 @@ export default {
 .card {
   text-align: center;
   position: relative;
+}
+.mkc-card {
+  display: flex;
 }
 
 .mkc-card-content {
