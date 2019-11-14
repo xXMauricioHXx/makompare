@@ -60,6 +60,12 @@ import Card from "./Card";
 
 export default {
   name: "Carousel",
+  props: {
+    products: {
+      type: Array,
+      required: true
+    }
+  },
   components: {
     Title,
     Card
@@ -94,41 +100,7 @@ export default {
   },
   data() {
     return {
-      items: [],
-      products: [
-        {
-          id: 1,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 2,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 3,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        },
-        {
-          id: 4,
-          title: "SMASHBOX",
-          description: "Batom Líquido Smashbox - Always On",
-          price: "R$ 125,00",
-          image:
-            "https://epocacosmeticos.vteximg.com.br/arquivos/ids/327787-300-300/big-spender.jpg?v=636886750756870000"
-        }
-      ]
+      items: []
     };
   }
 };
