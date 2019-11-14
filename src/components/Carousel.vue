@@ -4,6 +4,7 @@
       <div class="row align-items-center">
         <div class="col-lg-12 order-lg-2">
           <div class="pt-5">
+            <pre></pre>
             <Title class="mb-3">Produtos mais procurados</Title>
             <div class="bd-example">
               <div id="mkc-carousel" class="carousel slide" data-ride="carousel">
@@ -57,20 +58,17 @@
 <script>
 import Title from "./Title";
 import Card from "./Card";
+import { searchProducts } from "../services/makompare";
 
 export default {
   name: "Carousel",
-  props: {
-    products: {
-      type: Array,
-      required: true
-    }
-  },
   components: {
     Title,
     Card
   },
-  mounted() {
+  async mounted() {
+    this.products = await searchProducts("batom");
+    this.products = this.products.slice(0, 4);
     this.items = this.formatItems();
   },
   methods: {
@@ -100,7 +98,8 @@ export default {
   },
   data() {
     return {
-      items: []
+      items: [],
+      products: []
     };
   }
 };
