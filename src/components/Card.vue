@@ -83,7 +83,11 @@ export default {
   font-weight: 900;
   display: block;
 }
-
+.card-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 .mkc-product-description {
   font-size: 0.9rem;
 }

@@ -4586,6 +4586,9 @@ input[type="button"].btn-block {
 
 .card-title {
   margin-bottom: 0.75rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .card-subtitle {
