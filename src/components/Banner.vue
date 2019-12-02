@@ -21,7 +21,6 @@
 
 <script>
 import Title from "./Title";
-import { searchProducts } from "../services/makompare";
 
 export default {
   name: "Banner",
