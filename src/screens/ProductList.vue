@@ -2,9 +2,13 @@
   <div>
     <Menu />
     <section class="mt-6 product-container">
-      <div class="container-fluid pl-0">
+      <div class="container-fluid p-0">
         <div class="row mkc-product-list">
-          <div class="col d-none d-md-block col-md-2 mkc-filter-list pl-0">
+          <div class="col-12" v-if="isMobile">
+            <div class="mck-filters-btn" @click="openFilter"><span>Filtros</span></div>
+          </div>
+          <div class="col d-md-block col-md-4 col-lg-2 mkc-filter-list pl-0" :class="{'mobile-fitler': isMobile, 'show': openMobileFilter}">
+            <div v-if="isMobile" class="mck-filters-btn mb-4" @click="openFilter"><span>Filtrar</span></div>
             <h5>Marca</h5>
             <ul>
               <li v-for="brand in catalog.brands" :key="brand">
@@ -14,13 +18,13 @@
 
             <h5>Preço</h5>
             <ul>
-              <li v-for="price in catalog.rangePrice" :key="price">
-                <Radio :label="price" :filter="filterPrice" />
+              <li v-for="price in catalog.rangePrice" :key="price.label">
+                <Radio :label="price.label" :filter="filterPrice" />
               </li>
             </ul>
           </div>
-          <div class="col col-xs-12 col-md-10 col-lg-10 pl-0 pr-0">
-            <Title class="capitalize">{{title}}</Title>
+          <div class="col col-xs-12 col-md-8 col-lg-10 pl-0 pr-0">
+            <Title class="capitalize m-3">{{title}}</Title>
             <div class="row">
               <Card v-for="product in products" :product="product" v-bind:key="product.id" />
             </div>
@@ -52,15 +56,33 @@ export default {
   data() {
     return {
       title: this.$route.query.product,
+      isMobile: false,
       catalog: {
-        brands: ["MAC", "Eudora", "Vult", "Natura Una", "Dior"],
+        brands: [],
         rangePrice: [
-          "Até R$ 5,00",
-          "De R$ 5,00 á R$ 20,00",
-          "De R$ 20,00 á R$ 50,00",
-          "Acima de R$ 50,00"
+          {
+            label: "Até R$ 5,00",
+            max: 5,
+            min: 0
+          },
+          {
+            label: "De R$ 5,00 á R$ 20,00",
+            max: 20,
+            min: 5
+          },
+          {
+            label: "De R$ 20,00 á R$ 50,00",
+            max: 50,
+            min: 20,
+          }, 
+          {
+            label: "Acima de R$ 50,00",
+            max: 10000000,
+            min: 50
+          }
         ]
       },
+      openMobileFilter: false,
       loading: true,
       allProducts: [],
       products: [],
@@ -69,20 +91,23 @@ export default {
     };
   },
   async mounted() {
+    if(this.windowWidth <= 425) {
+      this.isMobile = true;
+    }
     const product = this.$route.query.product;
     this.products = await searchProducts(product);
+    this.catalog.brands = [...new Set(this.products.map(product => product.brand))];
     this.allProducts = this.products;
     this.loading = false;
   },
   methods: {
     filterBrands(brand) {
-      const brandLower = brand.toLowerCase();
-      if (this.brandTofilter.includes(brandLower)) {
+      if (this.brandTofilter.includes(brand)) {
         this.brandTofilter = this.brandTofilter.filter(brands => {
-          return brands != brandLower;
+          return brands != brand;
         });
       } else {
-        this.brandTofilter.push(brandLower);
+        this.brandTofilter.push(brand);
       }
 
       if (this.brandTofilter.length) {
@@ -94,38 +119,23 @@ export default {
       }
     },
     filterPrice(price) {
-      if (this.pricesToFilter.includes(price)) {
+      const currentPrice = this.catalog.rangePrice.find(rangePrice => rangePrice.label === price)
+      if (this.pricesToFilter.includes(currentPrice.label)) {
         this.pricesToFilter = this.pricesToFilter.filter(pricesToFilter => {
-          return pricesToFilter !== price;
+          return pricesToFilter !== currentPrice.label;
         });
       } else {
-        this.pricesToFilter.push(price);
+        this.pricesToFilter.push(currentPrice.label);
       }
 
       if (this.pricesToFilter.length) {
         let products = [];
         this.pricesToFilter.forEach(price => {
+          const currentPrice = this.catalog.rangePrice.find(rangePrice => rangePrice.label === price)
           products = [
             ...products,
             ...this.allProducts.filter(product => {
-              const value = parseFloat(
-                product.price.match(/([\d.*,.*\d]+)/g)[0]
-              ).toFixed(2);
-              if (price === "Até R$ 5,00") {
-                return value <= 5.0;
-              }
-
-              if (price === "De R$ 5,00 á R$ 20,00") {
-                return value > 5.0 && value <= 20.0;
-              }
-
-              if (price === "De R$ 20,00 á R$ 50,00") {
-                return value > 20.0 && value <= 50.0;
-              }
-
-              if (price === "Acima de R$ 50,00") {
-                return value > 50.0;
-              }
+            return product.price >= currentPrice.min && product.price <= currentPrice.max;
             })
           ];
         });
@@ -133,6 +143,9 @@ export default {
       } else {
         this.products = this.allProducts;
       }
+    },
+    openFilter() {
+      this.openMobileFilter = this.openMobileFilter ? false: true;
     }
   }
 };
@@ -141,9 +154,6 @@ export default {
 <style scoped>
 .capitalize {
   text-transform: capitalize;
-}
-.product-container {
-  margin-bottom: 15rem;
 }
 
 .mt-6 {
@@ -192,5 +202,31 @@ export default {
 .mkc-filter-list {
   background-color: #f2f2f2;
   padding: 2rem !important;
+  min-height: 100vh;
+}
+
+.mck-filters-btn span {
+  display: block;
+  width: 100%;
+  color: #ffff;
+  padding: 0.7rem 0px;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  background-color: #f42d4b;
+  box-shadow: 0px 5px 4px 0px rgba(168, 168, 168, 1);
+}
+.mobile-fitler {
+  position: absolute;
+  z-index: 100000;
+  left: -422px;
+  top: 72px;
+  transition: 1s;
+}
+
+.show {
+  left: 0px;
+  top: 72px;
 }
 </style>

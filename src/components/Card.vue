@@ -1,5 +1,5 @@
 <template>
-  <div class="col-xs-12 col-md-6 col-lg-3 mkc-card">
+  <div class="col-xs-12 col-md-6 col-lg-3 mkc-card ">
     <div class="card border-0 mkc-card-content">
       <div class="mkc-favorite" :class="{'mkc-favorite-carousel': isCarousel }">
         <i class="material-icons">favorite_border</i>
@@ -11,7 +11,7 @@
           <div class="mkc-product-description mt-3">{{product.description}}</div>
           <span class="mt-1 ante-price">A partir de:</span>
           <h6 class="mkc-price-list">
-            {{product.price}}
+            {{product.price | currency}}
             <span
               class="mkc-find-in"
               :class="{'mkc-find-in-carousel': isCarousel}"
@@ -22,7 +22,7 @@
           </h6>
         </div>
         <div class="mkc-card-action-list">
-          <router-link :to="`/product-detail/${product._id}`">Comparar</router-link>
+          <router-link :to="`/product-detail/${product.productId}`">Comparar</router-link>
         </div>
       </div>
     </div>
@@ -54,13 +54,11 @@ export default {
   text-align: center;
   position: relative;
 }
-.mkc-card {
-  display: flex;
-}
 
 .mkc-card-content {
   transition: 0.5s;
   position: relative;
+  width: 100%;
 }
 
 .product-container {
@@ -84,6 +82,7 @@ export default {
   display: block;
 }
 .card-title {
+  padding: 0px 2rem;  
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

@@ -1,19 +1,19 @@
 <template>
   <div class="row mck-bk-ff p-3 mb-4">
     <div class="col-md-3 mkc-product-image">
-      <img :src="product.image" />
+      <img :src="product.imageUrl" />
     </div>
     <div class="col-md-9">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <Title class="mkc-title">{{product.title}}</Title>
+            <Title class="mkc-title">{{product.name}}</Title>
           </div>
           <div class="col-12 mkc-description" v-html="product.description"></div>
           <div class="col-12">
             <span class="mkc-find-in">A partir de:</span>
-            <span class="mkc-price-list">{{product.price}}</span>
-            <span class="mkc-price-parcela">
+            <span class="mkc-price-list">{{product.price | currency}}</span>
+            <span class="mkc-price-parcela" v-if="product.intallments">
               Ou
               <span>
                 <span class="mkc-color-f4">{{product.installments}}x</span> de
@@ -26,7 +26,7 @@
             <div class="mkc-list-action">
               <ul class="p-0 mt-3">
                 <li>
-                  <a :href="product.siteLink">
+                  <a :href="product.link">
                     <i class="material-icons">launch</i> Ir para Loja
                   </a>
                 </li>
@@ -91,9 +91,6 @@ export default {
 
 .mkc-description {
   margin-bottom: 1rem;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 }
 
 .mkc-list-action ul li {
@@ -123,5 +120,17 @@ export default {
 .mkc-list-action ul li:hover {
   background-color: #c7374d;
   cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .mkc-list-action ul {
+    width: 100%;
+  }
+  .mkc-list-action ul li{
+    display: block;
+    padding: 1rem 0px;
+    margin-top: 0.5rem;
+    text-align: center
+  }
 }
 </style>

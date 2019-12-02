@@ -1,7 +1,7 @@
 <template>
   <div>
     <Menu />
-    <section class="mkc-bk-f2 pt-6">
+    <section class="mkc-bk-f2 pt-6 mck-container">
       <div class="container pb-5">
         <BuyBox :product="buyBoxItem" />
         <BuyItem v-for="item in buyItems" :product="item" v-bind:key="item.id" />
@@ -45,4 +45,7 @@ export default {
 </script>
 
 <style scoped>
+.mck-container {
+  height: 100vh;
+}
 </style>

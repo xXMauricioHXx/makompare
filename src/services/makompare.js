@@ -1,26 +1,38 @@
 import axios from "axios";
 const instance = axios.create({
-  baseURL: process.env.MAKOMPARE_URL || "https://web-dev-2019.herokuapp.com"
+  baseURL: process.env.MAKOMPARE_URL || "http://localhost:3000"
 });
 
-const formatResponse = data => {
-  return data.map(product => {
-    return {
-      ...product,
-      image: product.companies[0].image,
-      price: product.companies[0].price,
-      title: product.name,
-      brand: product.companies[0].brand
-    };
-  });
-};
+export const formatReponse = (product) => {
+  let minorPrice = 0;
+  let cheaperProduct = {}
+  product.companies.forEach((item) => {        
+    if(item.price < minorPrice || minorPrice === 0) {
+      cheaperProduct = item;
+    }
+  })
+  return {
+    ...product,
+    productId: cheaperProduct.productId,
+    image: cheaperProduct.imageUrl,
+    price: cheaperProduct.price,
+    title: cheaperProduct.name,
+    brand: cheaperProduct.brand,
+  }
+}
 
 export const searchProducts = async name => {
-  const response = await instance.get(`/produtos?q=${name}`);
-  return formatResponse(response.data);
+  try {
+    const response = await instance.get(`/products/${name}`);
+    const products = response.data;
+    
+    return products.map(formatReponse);
+  } catch(err) {
+    throw new Error(`Failed to search product with name ${name} - ${err.message}`);
+  }
 };
 
 export const searchProductById = async id => {
-  const response = await instance.get(`produtos/${id}`);
-  return response.data;
+  const response = await instance.get(`/products/detail/${id}`);
+  return formatReponse(response.data);
 };

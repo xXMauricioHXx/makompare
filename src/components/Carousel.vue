@@ -126,11 +126,11 @@ export default {
 }
 @media (max-width: 576px) {
   .courousel-arrow-right {
-    margin-left: 15px;
+    margin-left: -30px;
   }
 
   .courousel-arrow-left {
-    margin-right: 15px;
+    margin-right: -30px;
   }
 }
 </style>
