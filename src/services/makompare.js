@@ -4,9 +4,10 @@ const instance = axios.create({
 });
 
 export const formatReponse = (product) => {
-  let minorPrice = 0;
+  let minorPrice = 0;  
   let cheaperProduct = {}
   product.companies.forEach((item) => {        
+    item.installmentsPrice = item.price / item.installments;
     if(item.price < minorPrice || minorPrice === 0) {
       cheaperProduct = item;
     }
@@ -18,6 +19,9 @@ export const formatReponse = (product) => {
     price: cheaperProduct.price,
     title: cheaperProduct.name,
     brand: cheaperProduct.brand,
+    description: cheaperProduct.description,
+    installments: cheaperProduct.installments,
+    installmentsPrice: cheaperProduct.installmentsPrice
   }
 }
 
@@ -34,5 +38,10 @@ export const searchProducts = async name => {
 
 export const searchProductById = async id => {
   const response = await instance.get(`/products/detail/${id}`);
-  return formatReponse(response.data);
+  const products = response.data;
+  return products.map(formatReponse);
 };
+export const createUser = async data => {
+  const response = await instance.post(`/user`, data);
+  return response.data;
+}

@@ -8,7 +8,7 @@
       <div class="card-body">
         <h6 class="card-title">{{product.title}}</h6>
         <div class="mkc-product-info-list">
-          <div class="mkc-product-description mt-3">{{product.description}}</div>
+          <div class="mkc-product-description mt-3" v-html="product.description"></div>
           <span class="mt-1 ante-price">A partir de:</span>
           <h6 class="mkc-price-list">
             {{product.price | currency}}
@@ -89,6 +89,9 @@ export default {
 }
 .mkc-product-description {
   font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .mkc-product-info-list .ante-price {
   font-size: 0.8rem;

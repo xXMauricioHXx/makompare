@@ -7,22 +7,23 @@
             <img :src="product.imageUrl" />
           </div>
           <div class="col-md-2 mkc-product-image-brand">
-            <img :src="product.siteImage" />
+            <img :src="product.sallerImage" />
           </div>
           <div class="col-md-2 mkc-prices">
             <span class="mkc-find-by">á vista por:</span>
             <span class="mkc-price-list">{{product.price | currency}}</span>
           </div>
           <div class="col-md-2 mkc-prices">
-            <span class="mkc-find-by">
+            <span class="mkc-find-by" v-if="product.installments">
               Em até
               <span style="color: #f42d4b">{{product.installments}}X</span> de
             </span>
-            <span class="mkc-price-list">{{product.installmentsPrice}}</span>
+            <span class="mkc-price-list" v-if="product.installments">{{product.installmentsPrice | currency}}</span>
           </div>
           <div class="col-md-2 mkc-prices">
             <span class="mkc-find-by">com frete:</span>
-            <span class="mkc-price-list">{{product.priceWithShipping | currency}}</span>
+            <span class="mkc-price-list" v-if="product.priceWithShipping">{{product.priceWithShipping | currency}}</span>
+            <span v-if="!product.priceWithShipping">Não foi possível calcular o frete</span>
           </div>
           <div class="col-md-2 mkc-list-action pt-4 pb-4">
             <ul class="p-0 mt-3">

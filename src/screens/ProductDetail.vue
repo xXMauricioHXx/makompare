@@ -30,8 +30,17 @@ export default {
     const id = this.$route.params.id;
     this.products = await searchProductById(id);
     this.loading = false;
-    this.buyBoxItem = this.products.companies[0];
-    this.buyItems = this.products.companies;
+    this.buyBoxItem = {
+      imageUrl: this.products[0].image,
+      price: this.products[0].price,
+      description: this.products[0].description,
+      name: this.products[0].title,
+      installments: this.products[0].installments,
+      installmentsPrice: this.products[0].installmentsPrice,
+      priceWithShipping: this.products[0].priceWithShipping
+      
+    };
+    this.buyItems = this.products[0].companies;
   },
   data() {
     return {

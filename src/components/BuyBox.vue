@@ -12,7 +12,7 @@
           <div class="col-12 mkc-description" v-html="product.description"></div>
           <div class="col-12">
             <span class="mkc-find-in">A partir de:</span>
-            <span class="mkc-price-list">{{product.price | currency}}</span>
+            <span class="mkc-price-list">{{product.price && product.price | currency}}</span>
             <span class="mkc-price-parcela" v-if="product.intallments">
               Ou
               <span>

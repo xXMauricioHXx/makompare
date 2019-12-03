@@ -8,26 +8,26 @@
             <div class="form-group row">
               <div class="col-xs-12 col-md-6">
                 <label for="name">Nome Completo</label>
-                <input type="text" class="form-control" id="name" />
+                <input type="text" class="form-control" id="name" v-model="form.name"/>
               </div>
               <div class="col-xs-12 col-md-6">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" />
+                <input type="email" class="form-control" id="email" v-model="form.email"/>
               </div>
             </div>
             <div class="form-group row">
               <div class="col-xs-12 col-md-6">
                 <label for="senha">Senha</label>
-                <input type="text" class="form-control" id="senha" />
+                <input type="password" class="form-control" id="senha" v-model="form.password"/>
               </div>
               <div class="col-xs-12 col-md-6">
                 <label for="cep">CEP</label>
-                <input type="email" class="form-control" id="cep" />
+                <input type="email" class="form-control" id="cep" v-model="form.cep"/>
               </div>
             </div>
             <div class="form-group row">            
             <div class="col-xs-12 col-md-12 col-lg-6">
-              <span class="btn-mkc-register" v-on:click="submit">Cadatrar</span>
+              <span class="btn-mkc-register" v-on:click="submit">Cadastrar</span>
             </div>
             </div>
             
@@ -39,14 +39,26 @@
 </template>
 
 <script>
+import { createUser } from '../services/makompare';
 import Menu from "../components/Menu";
 export default {
   name: "Register",
   components: {
     Menu
   },
+  data() {
+    return {
+      form : {
+        name: '',
+        email: '',
+        password:  '',
+        cep: '',
+      }
+    }
+  },
   methods: {
-    submit() {
+    async submit() {
+      const data = await createUser(this.form);
       this.$router.push('/')
     }
   }
